@@ -1,0 +1,6 @@
+rvm-ruby:
+  user: rubyuser   # User - RVM will be installed into /home/$USER/.rvm
+  versions:        # Ruby version to install through RVM (this list should contain at least one version)
+    - 2.3.0
+    - 2.0.0-p247
+  default: 2.3.0   # Can be one of the version numbers listed under versions
