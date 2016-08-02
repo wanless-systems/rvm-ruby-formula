@@ -4,3 +4,7 @@ rvm-ruby:
     - 2.3.0
     - 2.0.0-p247
   default: 2.3.0   # Can be one of the version numbers listed under versions
+
+  # optional:
+  # explicitely set the pool server behind gnupg.net, if you have trouble reaching the default gnupg.net
+  keyserver: hkp://pool.sks-keyservers.net

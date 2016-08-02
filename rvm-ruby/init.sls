@@ -54,7 +54,7 @@ rvm:
 rvm-gpg:
   cmd:
     - run
-    - name: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    - name: gpg --keyserver {{ salt['pillar.get']('rvm-ruby:keyserver', 'hkp://keys.gnupg.net') }} --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
     - user: {{ pillar['rvm-ruby']['user'] }}
     - unless: gpg -k | grep 'RVM signing'
 
