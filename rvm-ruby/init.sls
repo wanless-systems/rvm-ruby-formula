@@ -21,7 +21,6 @@ mri-deps:
   pkg.installed:
     - pkgs:
       - curl
-      - gpg
       - gcc
       - gcc-c++
       - make
