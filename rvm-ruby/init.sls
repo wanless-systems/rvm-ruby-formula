@@ -43,7 +43,7 @@ rvm:
     - run
     - name: curl -sSL https://get.rvm.io | bash -s stable --quiet-curl
     - user: {{ pillar['rvm-ruby']['user'] }}
-    - unless: test -s "$HOME/.rvm/scripts/rvm"
+    - unless: test -s "/home/{{ pillar['rvm-ruby']['user'] }}/.rvm/scripts/rvm"
     - require:
       - cmd: rvm-gpg
       - pkg: rvm-deps
