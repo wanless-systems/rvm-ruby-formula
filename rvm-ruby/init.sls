@@ -43,7 +43,7 @@ rvm:
     - run
     - name: curl -sSL https://get.rvm.io | bash -s stable --quiet-curl
     - user: {{ pillar['rvm-ruby']['user'] }}
-    - unless: test -s "/home/{{ pillar['rvm-ruby']['user'] }}/.rvm/scripts/rvm"
+    - unless: test -s "$HOME/.rvm/scripts/rvm"
     - require:
       - cmd: rvm-gpg
       - pkg: rvm-deps
@@ -54,7 +54,7 @@ rvm-gpg:
     - run
     - name: gpg2 --keyserver {{ salt['pillar.get']('rvm-ruby:keyserver', 'hkp://keys.gnupg.net') }} --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     - user: {{ pillar['rvm-ruby']['user'] }}
-    - unless: gpg -k | grep 'RVM signing'
+    - unless: gpg2 -k | grep 'RVM signing'
 
 rvm-bashrc:
   cmd:
