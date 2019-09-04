@@ -38,11 +38,12 @@ mri-deps:
       - libyaml-devel
 
 
+# From: https://rvm.io/rvm/install
+# We're installing in multi-user mode and this state is expecting single-user mode
 rvm:
-  cmd:
-    - run
+  cmd.run:
     - name: curl -sSL https://get.rvm.io | bash -s stable --quiet-curl
-    - user: {{ pillar['rvm-ruby']['user'] }}
+    - runas: {{ pillar['rvm-ruby']['user'] }}
     - unless: test -s "$HOME/.rvm/scripts/rvm"
     - require:
       - cmd: rvm-gpg
@@ -50,16 +51,14 @@ rvm:
       - pkg: mri-deps
 
 rvm-gpg:
-  cmd:
-    - run
+  cmd.run:
     - name: gpg --keyserver {{ salt['pillar.get']('rvm-ruby:keyserver', 'hkp://keys.gnupg.net') }} --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB D39DC0E3
     - unless: gpg2 -k | grep 'RVM signing'
 
 rvm-bashrc:
-  cmd:
-    - run
+  cmd.run:
     - name: echo "[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm" >> $HOME/.bashrc
-    - user: {{ pillar['rvm-ruby']['user'] }}
+    - runas: {{ pillar['rvm-ruby']['user'] }}
     - unless: grep ".rvm/scripts/rvm" ~/.bashrc
 
 {% for ruby_version in pillar['rvm-ruby']['versions'] %}
