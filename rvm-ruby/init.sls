@@ -63,6 +63,13 @@ rvm-bashrc:
     - unless: grep ".rvm/scripts/rvm" ~/.bashrc
 
 {% for ruby_version in pillar['rvm-ruby']['versions'] %}
+ruby-{{ ruby_version }}-user-{{ pillar['rvm-ruby']['user'] }}-groups:
+  user.present:
+    - name: {{ pillar['rvm-ruby']['user'] }}
+    - groups:
+      - {{ pillar['rvm-ruby']['user'] }}
+      - rvm
+
 ruby-{{ ruby_version }}:
   rvm.installed:
     - user: {{ pillar['rvm-ruby']['user'] }}
