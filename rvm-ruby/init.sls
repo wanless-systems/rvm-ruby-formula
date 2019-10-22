@@ -69,6 +69,8 @@ ruby-{{ ruby_version }}:
     {% if pillar['rvm-ruby']['default'] is defined and pillar['rvm-ruby']['default'] == ruby_version %}
     - default: True
     {% endif %}
+    # Do not attempt to install this ruby version if it is already installed...
+    - unless: sudo -u {{ pillar['rvm-ruby']['user'] }} /bin/bash -c 'test -s "${HOME}/.rvm/rubies/ruby-{{ ruby_version }}"*"/bin/ruby"'
     - require:
       - cmd: rvm
 {% endfor %}
